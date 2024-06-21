@@ -1,5 +1,7 @@
 from pandas import Series
 
+from coop_kobe_parser.logger import init_logger
+
 
 class ProductParser:
     """
@@ -17,6 +19,7 @@ class ProductParser:
             df (Series): 商品情報のデータフレーム。
         """
         self.df = df
+        self.logger = init_logger()
 
     def _rename_columns(self):
         """
@@ -32,7 +35,7 @@ class ProductParser:
                 }
             )
         except Exception as e:
-            print(f"カラム名の変更に失敗しました: {e}")
+            self.logger.error(f"カラム名の変更に失敗しました: {e}")
 
     def _remove_commas_from_numbers(self):
         """
@@ -42,7 +45,7 @@ class ProductParser:
             for col in ["price", "subtotal"]:
                 self.df[col] = self.df[col].str.replace(",", "")
         except Exception as e:
-            print(f"数値のカンマ区切りの削除に失敗しました: {e}")
+            self.logger.error(f"数値のカンマ区切りの削除に失敗しました: {e}")
 
     def _convert_to_int(self):
         """
@@ -52,7 +55,7 @@ class ProductParser:
             for col in ["price", "amount", "subtotal"]:
                 self.df[col] = self.df[col].astype(int)
         except Exception as e:
-            print(f"int 型への変換に失敗しました: {e}")
+            self.logger.error(f"int 型への変換に失敗しました: {e}")
 
     def parse(self) -> list:
         """
@@ -67,6 +70,6 @@ class ProductParser:
             self._remove_commas_from_numbers()
             self._convert_to_int()
         except Exception as e:
-            print(f"商品情報のパースに失敗しました: {e}")
+            self.logger.error(f"商品情報のパースに失敗しました: {e}")
 
         return self.df.to_dict("records")

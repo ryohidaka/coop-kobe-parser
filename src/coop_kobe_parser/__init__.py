@@ -2,6 +2,7 @@ import json
 from pandas import read_csv, DataFrame, Series
 from pandas.errors import EmptyDataError, ParserError
 
+from coop_kobe_parser.logger import init_logger
 from coop_kobe_parser.parsers import ProductParser, SummaryParser
 
 
@@ -23,6 +24,12 @@ def main():
 
 
 class CoopKobeParser:
+    def __init__(self):
+        """
+        CoopKobeParser クラスの初期化。
+        """
+        self.logger = init_logger()
+
     def parse(self, csv_path: str) -> dict:
         """
         CSV ファイルを解析し、種別ごとに分離した上で取得する
@@ -62,9 +69,9 @@ class CoopKobeParser:
             df = read_csv(path, dtype=str)
             return df
         except FileNotFoundError:
-            print(f"ファイル {path} が見つかりませんでした。")
+            self.logger.error(f"ファイル {path} が見つかりませんでした。")
         except (EmptyDataError, ParserError):
-            print(f"ファイル {path} の読み込み中にエラーが発生しました。")
+            self.logger.error(f"ファイル {path} の読み込み中にエラーが発生しました。")
             return None
 
     def _divide_df(self, df: DataFrame) -> tuple[Series, Series]:
