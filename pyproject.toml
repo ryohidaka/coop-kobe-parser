@@ -10,6 +10,14 @@ dependencies = [
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
+license = {file = "LICENSE"}
+keywords = ["coop","csv","parser","japanese","japan"]
+
+[project.urls]
+Homepage = "https://github.com/ryohidaka/coop-kobe-parser"
+Repository = "https://github.com/ryohidaka/coop-kobe-parser"
+Issues = "https://github.com/ryohidaka/coop-kobe-parser/issues"
+Changelog = "https://github.com/ryohidaka/blob/main/coop-kobe-parser/CHANGELOG.md"
 
 [project.scripts]
 "coop-kobe-parser" = "coop_kobe_parser:main"
