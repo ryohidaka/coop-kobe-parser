@@ -1,4 +1,4 @@
-from pandas import read_csv, DataFrame
+from pandas import read_csv, DataFrame, Series
 from pandas.errors import EmptyDataError, ParserError
 
 
@@ -29,9 +29,12 @@ class CoopKobeParser:
         # CSV ファイルを読み込み
         df = self._load_csv(csv_path)
 
+        # 商品一覧と支払情報のデータフレームに分ける
+        df_products, df_summary = self._divide_df(df)
+
         # データフレームを出力
-        if df is not None:
-            print(df)
+        print(df_products)
+        print(df_summary)
 
     def _load_csv(self, path: str) -> DataFrame:
         """
@@ -52,3 +55,30 @@ class CoopKobeParser:
         except (EmptyDataError, ParserError):
             print(f"ファイル {path} の読み込み中にエラーが発生しました。")
             return None
+
+    def _divide_df(self, df: DataFrame) -> tuple[Series, Series]:
+        """
+        商品一覧と支払情報のデータフレームに分ける
+
+        Parameters:
+        df (DataFrame): CSV ファイルから読み込んだデータフレーム
+
+        Returns:
+        tuple[DataFrame, DataFrame]: 商品一覧のデータフレームと支払情報のデータフレームのタプル
+        """
+
+        # 品番が存在するかどうかを確認
+        if "品番" not in df.columns:
+            raise ValueError("品番列がデータフレームに存在しません。")
+
+        # 商品一覧のデータフレームを取得 (品番がNaNでない)
+        df_products = df[df["品番"].notna()]
+
+        # 支払情報のデータフレームを取得 (品番がNaN)
+        df_summary = df[df["品番"].isna()]
+
+        # 商品一覧と支払情報のデータフレームが空でないことを確認
+        if df_products.empty or df_summary.empty:
+            raise ValueError("商品一覧または支払情報のデータフレームが空です。")
+
+        return df_products, df_summary
