@@ -18,16 +18,20 @@ def main():
     csv_path = "demo/demo.csv"
 
     # CSV ファイルを解析
-    parser.parse(csv_path)
+    data = parser.parse(csv_path)
+    print(json.dumps(data, indent=4, ensure_ascii=False))
 
 
 class CoopKobeParser:
-    def parse(self, csv_path: str):
+    def parse(self, csv_path: str) -> dict:
         """
-        CSV ファイルを解析し、データフレームを出力する
+        CSV ファイルを解析し、種別ごとに分離した上で取得する
 
         Parameters:
         csv_path (str): 解析する CSV ファイルのパス
+
+        Returns:
+        dict: パース結果
         """
         # CSV ファイルを読み込み
         df = self._load_csv(csv_path)
@@ -38,12 +42,10 @@ class CoopKobeParser:
         # 商品一覧をパースして配列化する
         products = ProductParser(df_products).parse()
 
-        # データフレームを出力
-        print(json.dumps(products, indent=4, ensure_ascii=False))
-
         # 支払情報をパースする
         summary = SummaryParser(df_summary).parse()
-        print(json.dumps(summary, indent=4))
+
+        return {"products": products, "summary": summary}
 
     def _load_csv(self, path: str) -> DataFrame:
         """
