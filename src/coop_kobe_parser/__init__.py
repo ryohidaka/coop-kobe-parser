@@ -2,7 +2,7 @@ import json
 from pandas import read_csv, DataFrame, Series
 from pandas.errors import EmptyDataError, ParserError
 
-from coop_kobe_parser.parsers import ProductParser
+from coop_kobe_parser.parsers import ProductParser, SummaryParser
 
 
 def main():
@@ -40,7 +40,10 @@ class CoopKobeParser:
 
         # データフレームを出力
         print(json.dumps(products, indent=4, ensure_ascii=False))
-        print(df_summary)
+
+        # 支払情報をパースする
+        summary = SummaryParser(df_summary).parse()
+        print(json.dumps(summary, indent=4))
 
     def _load_csv(self, path: str) -> DataFrame:
         """
