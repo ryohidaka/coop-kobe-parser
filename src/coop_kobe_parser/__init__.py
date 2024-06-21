@@ -1,5 +1,8 @@
+import json
 from pandas import read_csv, DataFrame, Series
 from pandas.errors import EmptyDataError, ParserError
+
+from coop_kobe_parser.parsers import ProductParser
 
 
 def main():
@@ -32,8 +35,11 @@ class CoopKobeParser:
         # 商品一覧と支払情報のデータフレームに分ける
         df_products, df_summary = self._divide_df(df)
 
+        # 商品一覧をパースして配列化する
+        products = ProductParser(df_products).parse()
+
         # データフレームを出力
-        print(df_products)
+        print(json.dumps(products, indent=4, ensure_ascii=False))
         print(df_summary)
 
     def _load_csv(self, path: str) -> DataFrame:
