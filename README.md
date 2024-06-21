@@ -17,7 +17,7 @@ pip install coop-kobe-parser
 ## 使用方法
 
 ```py
-from coop-kobe-parser import CoopKobeParser
+from coop_kobe_parser import CoopKobeParser
 
 
 # パーサーのインスタンスを作成
