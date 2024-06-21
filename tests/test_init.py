@@ -1,4 +1,4 @@
-from python_package_template import main
+from coop_kobe_parser import main
 
 
 def test_main():
