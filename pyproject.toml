@@ -1,6 +1,6 @@
 [project]
 name = "coop-kobe-parser"
-version = "0.1.1"
+version = "0.1.2"
 description = "コープこうべの宅配の注文書(CSV)をパースするPythonパッケージ"
 authors = [
     { name = "ryohidaka", email = "39184410+ryohidaka@users.noreply.github.com" }
