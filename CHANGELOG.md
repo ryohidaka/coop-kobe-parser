@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/ryohidaka/coop-kobe-parser/compare/v0.1.1...v0.1.2) (2024-06-29)
+
+
+### Bug Fixes
+
+* ログが2重で出力される不具合を修正 ([68293ef](https://github.com/ryohidaka/coop-kobe-parser/commit/68293efec164e755da079f85cf5250f44c6b51f5))
+
 ## [0.1.1](https://github.com/ryohidaka/coop-kobe-parser/compare/v0.1.0...v0.1.1) (2024-06-29)
 
 
