@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/ryohidaka/coop-kobe-parser/compare/v0.1.0...v0.1.1) (2024-06-29)
+
+
+### Documentation
+
+* 使用例を修正 ([5b3b783](https://github.com/ryohidaka/coop-kobe-parser/commit/5b3b7831d3358078c5bed4b3de46066cc18c2020))
+
 ## 0.1.0 (2024-06-21)
 
 
